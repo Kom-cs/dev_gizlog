@@ -1,0 +1,26 @@
+<?php
+
+use Illuminate\Database\Seeder;
+
+class DailyReportsSeeder extends Seeder
+{
+    /**
+     * Run the database seeds.
+     *
+     * @return void
+     */
+    public function run()
+    {
+        DB::table('daily_reports')->truncate();
+        DB::table('daily_reports')->insert([
+            [
+                'user_id' => 4,
+                'title' => 'Simple is the Best',
+                'content' => 'Describe it',
+                'reporting_time' => Carbon::create(2019, 10, 30),
+                'created_at' => Carbon::create(2019, 10, 30),
+                'updated_at' => Carbon::create(2019, 10, 30),
+            ]
+        ]);
+    }
+}

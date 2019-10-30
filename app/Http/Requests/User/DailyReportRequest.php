@@ -23,12 +23,12 @@ class DailyReportRequest extends FormRequest
      */
     public function rules()
     {
-        //
+        //　条件定義
     }
   
     public function messages()
     {
-        //
+        //　エラーメッセージ定義
     }
 }
 
