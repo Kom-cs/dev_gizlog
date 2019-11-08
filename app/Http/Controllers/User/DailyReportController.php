@@ -20,8 +20,8 @@ class DailyReportController extends Controller
 
     public function index()
     {
-        $daily_reports = $this->dailyReport->getByUserId(Auth::id());
-        return view('user.daily_report.index', compact('daily_reports'));
+        $dailyReport = $this->dailyReport->getByUserId(Auth::id());
+        return view('user.daily_report.index', compact('dailyReport'));
     }
 
     public function showCreateForm()
@@ -29,26 +29,33 @@ class DailyReportController extends Controller
         return view('user.daily_report.create');
     }
 
-    public function createReport(Request $request)
+    public function createReport(DailyReportRequest $request)
     {
-        $input = $request->all();
+        $input = $request->validated();
         $input['user_id'] = Auth::id();
-        // dd($input);
-        $this->dailyReport->fill($input)->save();
+        $this->dailyReport->updateOrCreate($input);
         return redirect()->route('daily_report.index');
     }
 
-    public function showEditForm()
+    public function showDetails($id)
     {
-        return view('user.daily_report.edit');
+        $dailyReport = $this->dailyReport->find($id);
+        return view('user.daily_report.show', compact('dailyReport'));
     }
 
-    public function editReport(){}
-
-    public function showDetails()
+    public function showEditForm($id)
     {
-        return view('user.daily_report.show');
+        $dailyReport = $this->dailyReport->find($id);
+        return view('user.daily_report.edit', compact('dailyReport'));
     }
+
+    public function editReport(DailyReportRequest $request, $id)
+    {
+        $input = $request->validated();
+        $this->dailyReport->find($id)->update($input);
+        return redirect()->route('daily_report.index');
+    }
+
 
     public function deleteReport($id)
     {

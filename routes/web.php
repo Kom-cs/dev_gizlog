@@ -43,9 +43,10 @@ Route::group(['prefix' => '/', 'user.', 'namespace' => 'User'], function () {
     Route::get('daily_report', ['as' => 'daily_report.index', 'uses' => 'DailyReportController@index']);
     Route::get('daily_report/create', ['as' => 'daily_report.create', 'uses' => 'DailyReportController@showCreateForm']);
     Route::post('daily_report/create', ['as' => 'daily_report.create', 'uses' => 'DailyReportController@createReport']);
-    Route::get('daily_report/show', ['as' => 'daily_report.show', 'uses' => 'DailyReportController@showDetails']);
-    Route::put('daily_report/show', ['as' => 'daily_report.show.destroy', 'uses' => 'DailyReportController@deleteReport']);
-    Route::get('daily_report/edit', ['as' => 'daily_report.edit', 'uses' => 'DailyReportController@showEditForm']);
+    Route::get('daily_report/{id}', ['as' => 'daily_report', 'uses' => 'DailyReportController@showDetails']);
+    Route::get('daily_report/{id}/edit', ['as' => 'daily_report.edit', 'uses' => 'DailyReportController@showEditForm']);
+    Route::put('daily_report/{id}/edit', ['as' => 'daily_report.update', 'uses' => 'DailyReportController@editReport']);
+    Route::put('daily_report/{id}/destroy', ['as' => 'daily_report.destroy', 'uses' => 'DailyReportController@deleteReport']);
 
     Route::get('question/{id}/mypage', ['as' => 'question.mypage', 'uses' => 'QuestionController@myPage']);
     Route::post('question/confirm', ['as' => 'question.confirm', 'uses' => 'QuestionController@confirm']);

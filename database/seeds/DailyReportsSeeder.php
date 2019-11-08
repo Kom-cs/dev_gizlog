@@ -14,7 +14,7 @@ class DailyReportsSeeder extends Seeder
         DB::table('daily_reports')->truncate();
         DB::table('daily_reports')->insert([
             [
-                'user_id' => 4,
+                'user_id' => 1,
                 'title' => 'Simple is the Best',
                 'content' => 'Describe it',
                 'reporting_time' => Carbon::create(2019, 10, 30),

@@ -23,12 +23,36 @@ class DailyReportRequest extends FormRequest
      */
     public function rules()
     {
-        //　条件定義
+        return [
+            'user_id',
+            'reporting_time' => 'required|date',
+            'title' => 'required|string|max:30',
+            'content' => 'required|string|max:1000',
+        ];    
     }
   
     public function messages()
     {
-        //　エラーメッセージ定義
+        return [
+            'reporting_time.required' => '入力必須の項目です。',
+            'reporting_time.date' => '日付フォームに従って入力してください。',
+            'title.required' => '入力必須の項目です。',
+            'title.string' => 'タイトルが文字列になっていません',
+            'title.max' => '30文字以下で入力してください。',
+            'content.required' => '入力必須の項目です。',
+            'content.string' => 'コンテンツが文字列になっていません。',
+            'content.max' => '1000文字以下で入力してください',
+        ];
     }
+
+    // public function requestReport()
+    // {
+    //     return $this->only([
+    //         'user_id',
+    //         'title',
+    //         'content',
+    //         'reporting_time',
+    //     ]);
+    // }
 }
 
