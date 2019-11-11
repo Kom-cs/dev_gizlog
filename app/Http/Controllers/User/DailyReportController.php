@@ -57,7 +57,6 @@ class DailyReportController extends Controller
         return redirect()->route('daily_report.index');
     }
 
-
     public function deleteReport($id)
     {
         $this->dailyReport->find($id)->delete();
