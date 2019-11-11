@@ -2,8 +2,6 @@
 
 namespace App\Models;
 
-use App\Http\Controllers\Controller;
-use App\Models\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
