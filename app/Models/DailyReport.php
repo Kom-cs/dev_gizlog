@@ -30,7 +30,7 @@ class DailyReport extends Model
         //     ->when($month, function($query, $month){
         //         $query = $query->where('reporting_time', 'like', '%'.$month.'%'); 
         //     });
-        $query = $this->where('user_id', $id)
+        $query = $this->where('user_id', $id);
         if (isset($month)){
             $query = $query->where('reporting_time', 'like', '%'.$month.'%');
         }
