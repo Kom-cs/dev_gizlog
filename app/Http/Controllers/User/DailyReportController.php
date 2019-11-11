@@ -7,6 +7,7 @@ use App\Http\Requests\User\DailyReportRequest;
 use App\Models\DailyReport;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class DailyReportController extends Controller
 {
@@ -18,9 +19,10 @@ class DailyReportController extends Controller
         $this->dailyReport = $dailyReport;
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        $dailyReport = $this->dailyReport->getByUserId(Auth::id());
+        $inputMonth =  $request->input('search-month');
+        $dailyReport = $this->dailyReport->getFilteredReport(Auth::id(), $inputMonth);
         return view('user.daily_report.index', compact('dailyReport'));
     }
 
@@ -62,4 +64,5 @@ class DailyReportController extends Controller
         $this->dailyReport->find($id)->delete();
         return redirect()->route('daily_report.index');
     }
+
 }

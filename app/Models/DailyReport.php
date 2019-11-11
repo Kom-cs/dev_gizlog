@@ -24,8 +24,19 @@ class DailyReport extends Model
         'reporting_time',
     ];
 
-    public function getByUserId($id)
+    // public function getByUserId($id)
+    // {
+    //     return $this->where('user_id', $id)->get();
+    // }
+
+    public function getFilteredReport($id, $month) 
     {
-        return $this->where('user_id', $id)->get();
+        $query = $this->where('user_id', $id);
+        if (isset($month)){
+            $query = $query->where('reporting_time', 'like', '%'.$month.'%');
+        }
+        return $query->get();
+        dd($query);
     }
+    
 }
