@@ -24,7 +24,7 @@ class DailyReportRequest extends FormRequest
     public function rules()
     {
         return [
-            'user_id',
+            'user_id' => '',
             'reporting_time' => 'required|date',
             'title' => 'required|string|max:30',
             'content' => 'required|string|max:1000',
@@ -34,12 +34,10 @@ class DailyReportRequest extends FormRequest
     public function messages()
     {
         return [
-            'reporting_time.required' => '入力必須の項目です。',
+            'required' => '入力必須の項目です。',
             'reporting_time.date' => '日付フォームに従って入力してください。',
-            'title.required' => '入力必須の項目です。',
             'title.string' => 'タイトルが文字列になっていません',
             'title.max' => '30文字以下で入力してください。',
-            'content.required' => '入力必須の項目です。',
             'content.string' => 'コンテンツが文字列になっていません。',
             'content.max' => '1000文字以下で入力してください',
         ];
