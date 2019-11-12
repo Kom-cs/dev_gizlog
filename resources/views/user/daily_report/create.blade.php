@@ -18,7 +18,7 @@
         {{ Form::textarea('content', null, ['class' => 'form-control', 'placeholder' => 'Content', 'cols' => 50, 'rows' => 10]) }}
         <span class="help-block">{{ $errors->first('content') }}</span>
       </div>
-      {{ Form::button('Add', ['class' => 'btn btn-success pull-right']) }}
+      {{ Form::button('Add', ['class' => 'btn btn-success pull-right', 'type' => 'submit']) }}
     {{ Form::close() }}
   </div>
 </div>

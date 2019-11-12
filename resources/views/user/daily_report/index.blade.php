@@ -24,8 +24,8 @@
         @foreach ($dailyReport as $report)
           <tr class="row">
             <td class="col-xs-2">{{ $report->reporting_time->format('Y/m/d (D)') }}</td>
-            <td class="col-xs-3">{{ $report->title }}</td>
-            <td class="col-xs-5">{{ $report->content }}</td>
+            <td class="col-xs-3">{{ str_limit($report->title, $lmit = 20, $end = '...') }}</td>
+            <td class="col-xs-5">{{ str_limit($report->content, $limit = 30, $end = '...') }}</td>
             <td class="col-xs-2"><a class="btn" href="{{ route('daily_report', $report->id) }}"><i class="fa fa-book"></i></a></td>
           </tr>
         @endforeach
