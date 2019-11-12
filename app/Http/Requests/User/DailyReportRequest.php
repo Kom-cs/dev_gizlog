@@ -28,6 +28,7 @@ class DailyReportRequest extends FormRequest
             'reporting_time' => 'required|date',
             'title' => 'required|string|max:30',
             'content' => 'required|string|max:1000',
+            'search-month' => 'nullable|date',
         ];    
     }
   
@@ -35,7 +36,7 @@ class DailyReportRequest extends FormRequest
     {
         return [
             'required' => '入力必須の項目です。',
-            'reporting_time.date' => '日付フォームに従って入力してください。',
+            'date' => '日付フォームに従って入力してください。',
             'title.string' => 'タイトルが文字列になっていません',
             'title.max' => '30文字以下で入力してください。',
             'content.string' => 'コンテンツが文字列になっていません。',

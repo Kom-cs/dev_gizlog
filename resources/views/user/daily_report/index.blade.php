@@ -5,8 +5,11 @@
 <div class="main-wrap">
   <div class="btn-wrapper daily-report">
     {{ Form::open(['route' => 'daily_report.index']) }}
-      {{ Form::input('month', 'search-month', 'month', ['class' => 'form-control']) }}
-      {{ Form::button('<i class="fa fa-search"></i>', ['class' => 'btn btn-icon', 'type' => 'submit']) }}
+      <div class="form-group @if(!empty($errors->first('search-month'))) has-error @endif">
+        {{ Form::input('month', 'search-month', 'month', ['class' => 'form-control']) }}
+        {{ Form::button('<i class="fa fa-search"></i>', ['class' => 'btn btn-icon', 'type' => 'submit']) }}
+        <span class="help-block">{{ $errors->first('search-month') }}</span>
+      </div>
     {{ Form::close() }}
     <a class="btn btn-icon" href="{{ route('daily_report.create') }}"><i class="fa fa-plus"></i></a>
   </div>
@@ -24,7 +27,7 @@
         @foreach ($dailyReport as $report)
           <tr class="row">
             <td class="col-xs-2">{{ $report->reporting_time->format('Y/m/d (D)') }}</td>
-            <td class="col-xs-3">{{ str_limit($report->title, $lmit = 20, $end = '...') }}</td>
+            <td class="col-xs-3">{{ str_limit($report->title, $limit = 20, $end = '...') }}</td>
             <td class="col-xs-5">{{ str_limit($report->content, $limit = 30, $end = '...') }}</td>
             <td class="col-xs-2"><a class="btn" href="{{ route('daily_report', $report->id) }}"><i class="fa fa-book"></i></a></td>
           </tr>
