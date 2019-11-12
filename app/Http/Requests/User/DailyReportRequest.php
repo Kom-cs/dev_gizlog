@@ -44,15 +44,5 @@ class DailyReportRequest extends FormRequest
             'content.max' => '1000文字以下で入力してください',
         ];
     }
-
-    // public function requestReport()
-    // {
-    //     return $this->only([
-    //         'user_id',
-    //         'title',
-    //         'content',
-    //         'reporting_time',
-    //     ]);
-    // }
 }
 

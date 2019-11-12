@@ -29,10 +29,6 @@ class DailyReport extends Model
             $query = $query->where('reporting_time', 'like', '%'.$month.'%');
         }
         return $query->get();
-        // $query = $this->where('user_id', $id)
-        //     ->when($month, function($query, $month){
-        //         $query = $query->where('reporting_time', 'like', '%'.$month.'%'); 
-        //     });
     }
     
 }
