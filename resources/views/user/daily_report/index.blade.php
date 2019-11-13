@@ -6,7 +6,7 @@
   <div class="btn-wrapper daily-report">
     {{ Form::open(['route' => 'daily_report.index']) }}
       <div class="form-group @if(!empty($errors->first('search-month'))) has-error @endif">
-        {{ Form::input('month', 'search-month', 'month', ['class' => 'form-control']) }}
+        {{ Form::input('month', 'search-month', null, ['class' => 'form-control']) }}
         {{ Form::button('<i class="fa fa-search"></i>', ['class' => 'btn btn-icon', 'type' => 'submit']) }}
         <span class="help-block">{{ $errors->first('search-month') }}</span>
       </div>

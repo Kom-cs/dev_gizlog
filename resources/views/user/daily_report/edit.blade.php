@@ -18,7 +18,7 @@
         {{ Form::textarea('content', $dailyReport->content, ['class' => 'form-control', 'placeholder' => 'Content', 'cols' => 50, 'rows' => 10]) }}
       <span class="help-block">{{ $errors->first('content') }}</span>
       </div>
-       {{ Form::button('Update', ['class' => 'btn btn-success pull-right', 'type' => 'submit']) }}
+      {{ Form::button('Update', ['class' => 'btn btn-success pull-right', 'type' => 'submit']) }}
     {{ Form::close() }}
   </div>
 </div>

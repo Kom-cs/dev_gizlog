@@ -20,7 +20,11 @@ class DailyReportController extends Controller
 
     public function index(Request $request)
     {
-        $inputMonth =  $request->input('search-month');
+        $request->validate(
+            ['search-month' => 'nullable|date'],
+            ['date' => '日付形式で入力してください。']
+        );
+        $inputMonth = $request->input('search-month');
         $dailyReport = $this->dailyReport->getFilteredReport(Auth::id(), $inputMonth);
         return view('user.daily_report.index', compact('dailyReport'));
     }
@@ -34,8 +38,7 @@ class DailyReportController extends Controller
     {
         $input = $request->validated();
         $input['user_id'] = Auth::id();
-        $this->dailyReport->fill($input)->save();
-        // $this->dailyReport->updateOrCreate($input);
+        $this->dailyReport->create($input);
         return redirect()->route('daily_report.index');
     }
 

@@ -11,12 +11,7 @@ class DailyReport extends Model
 
     protected $table = 'daily_reports';
 
-    protected $fillable = [
-        'user_id',
-        'title',
-        'content',
-        'reporting_time',
-    ];
+    protected $guarded = [];
     
     protected $dates = [
         'reporting_time',
