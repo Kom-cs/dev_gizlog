@@ -35,9 +35,9 @@ class DailyReportRequest extends FormRequest
         return [
             'required' => '入力必須の項目です。',
             'date' => '日付形式で入力してください。',
-            'string' => '入力値が文字列になっていません',
+            'string' => '入力値が文字列になっていません。',
             'title.max' => '30文字以下で入力してください。',
-            'content.max' => '1000文字以下で入力してください',
+            'content.max' => '1000文字以下で入力してください。',
         ];
     }
 }

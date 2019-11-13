@@ -37,7 +37,7 @@ class DailyReportController extends Controller
     }
     
     /**
-     * Show the form to create a new resuorce.
+     * Show the form to create a new resuorce in the storage.
      * 
      * @return \Illuminate\View\View|\Illuminate\Contracts\View\Factory
      */
@@ -101,7 +101,7 @@ class DailyReportController extends Controller
     }
 
     /**
-     * Remove the specified resource from the strage using SoftDeletes.
+     * Remove the specified resource from the displaying list using SoftDeletes.
      *
      * @param int $id
      * @return \Illuminate\Http\RedirectResponse
