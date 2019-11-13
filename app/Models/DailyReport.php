@@ -23,7 +23,9 @@ class DailyReport extends Model
         if (isset($month)){
             $query = $query->where('reporting_time', 'like', '%'.$month.'%');
         }
-        return $query->get();
+        return $query
+            ->orderBy('reporting_time', 'desc')
+            ->get();
     }
     
 }
