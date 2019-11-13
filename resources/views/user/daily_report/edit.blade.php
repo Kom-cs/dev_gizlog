@@ -5,7 +5,6 @@
 <div class="main-wrap">
   <div class="container">
     {{ Form::open(['route' => ['daily_report.update', $dailyReport->id], 'method' => 'PUT']) }}
-      {{ Form::hidden('user_id', $dailyReport->user_id , ['class' => 'form-control']) }}
       <div class="form-group form-size-small　@if(!empty($errors->first('reporting_time'))) has-error @endif">
         {{ Form::input('date', 'reporting_time', $dailyReport->reporting_time->format('Y-m-d'), ['class' => 'form-control', 'placeholder' => 'Title']) }}
       <span class="help-block">{{ $errors->first('reporting_time') }}</span>

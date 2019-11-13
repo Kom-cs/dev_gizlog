@@ -22,5 +22,15 @@ class DailyReportsSeeder extends Seeder
                 'updated_at' => Carbon::create(2019, 10, 30),
             ]
         ]);
+        DB::table('daily_reports')->insert([
+            [
+                'user_id' => 2,
+                'title' => 'タイトルはシンプルに',
+                'content' => '日報は詳細に',
+                'reporting_time' => Carbon::create(2019, 6, 30),
+                'created_at' => Carbon::create(2019, 6, 30),
+                'updated_at' => Carbon::create(2019, 6, 30),
+            ]
+        ]);
     }
 }

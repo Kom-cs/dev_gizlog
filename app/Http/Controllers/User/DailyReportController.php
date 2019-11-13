@@ -18,6 +18,13 @@ class DailyReportController extends Controller
         $this->dailyReport = $dailyReport;
     }
 
+    /**
+     * Diplay the list of the resource.
+     * 
+     * @param Illuminate\Http\Request $request
+     * @return \Illuminate\View\View|\Illuminate\Contracts\View\Factory
+     */
+
     public function index(Request $request)
     {
         $request->validate(
@@ -28,11 +35,23 @@ class DailyReportController extends Controller
         $dailyReport = $this->dailyReport->getFilteredReport(Auth::id(), $inputMonth);
         return view('user.daily_report.index', compact('dailyReport'));
     }
-
+    
+    /**
+     * Show the form to create a new resuorce.
+     * 
+     * @return \Illuminate\View\View|\Illuminate\Contracts\View\Factory
+     */
     public function showCreateForm()
     {
         return view('user.daily_report.create');
     }
+
+    /**
+     * Store and create a new resource in the storage.
+     *
+     * @param App\Http\Requests\User\DailyReportRequest $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
 
     public function createReport(DailyReportRequest $request)
     {
@@ -42,25 +61,51 @@ class DailyReportController extends Controller
         return redirect()->route('daily_report.index');
     }
 
+    /**
+     * Display the whole specified resource.
+     *
+     * @param int $id
+     * @return \Illuminate\View\View|\Illuminate\Contracts\View\Factory
+     */
     public function showDetails($id)
     {
         $dailyReport = $this->dailyReport->find($id);
         return view('user.daily_report.show', compact('dailyReport'));
     }
 
+    /**
+     * Show the form to edit the specified resource.
+     *
+     * @param int $id
+     * @return \Illuminate\View\View|\Illuminate\Contracts\View\Factory
+     */
     public function showEditForm($id)
     {
         $dailyReport = $this->dailyReport->find($id);
         return view('user.daily_report.edit', compact('dailyReport'));
     }
 
+    /**
+     * Edit and update the specified resource in the storage.
+     *
+     * @param App\Http\Requests\User\DailyReportRequest $request
+     * @param int $id
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function editReport(DailyReportRequest $request, $id)
     {
         $input = $request->validated();
+        $input['user_id'] = Auth::id();
         $this->dailyReport->find($id)->update($input);
         return redirect()->route('daily_report.index');
     }
 
+    /**
+     * Remove the specified resource from the strage using SoftDeletes.
+     *
+     * @param int $id
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function deleteReport($id)
     {
         $this->dailyReport->find($id)->delete();
