@@ -19,7 +19,7 @@ class DailyReportController extends Controller
     }
 
     /**
-     * Diplay the list of the resource.
+     * 日報の一覧表示と入力した月で検索。
      * 
      * @param Illuminate\Http\Request $request
      * @return \Illuminate\View\View|\Illuminate\Contracts\View\Factory
@@ -37,7 +37,7 @@ class DailyReportController extends Controller
     }
     
     /**
-     * Show the form to create a new resuorce in the storage.
+     * 日報作成ページの表示。
      * 
      * @return \Illuminate\View\View|\Illuminate\Contracts\View\Factory
      */
@@ -47,7 +47,7 @@ class DailyReportController extends Controller
     }
 
     /**
-     * Store and create a new resource in the storage.
+     * 作成した日報をDBに登録。
      *
      * @param App\Http\Requests\User\DailyReportRequest $request
      * @return \Illuminate\Http\RedirectResponse
@@ -62,7 +62,7 @@ class DailyReportController extends Controller
     }
 
     /**
-     * Display the whole specified resource.
+     * 選択した日報の詳細を表示。
      *
      * @param int $id
      * @return \Illuminate\View\View|\Illuminate\Contracts\View\Factory
@@ -74,7 +74,7 @@ class DailyReportController extends Controller
     }
 
     /**
-     * Show the form to edit the specified resource.
+     * 選択した日報の編集ページを表示。
      *
      * @param int $id
      * @return \Illuminate\View\View|\Illuminate\Contracts\View\Factory
@@ -86,7 +86,7 @@ class DailyReportController extends Controller
     }
 
     /**
-     * Edit and update the specified resource in the storage.
+     * 日報を編集してDBを更新。
      *
      * @param App\Http\Requests\User\DailyReportRequest $request
      * @param int $id
@@ -101,7 +101,7 @@ class DailyReportController extends Controller
     }
 
     /**
-     * Remove the specified resource from the displaying list using SoftDeletes.
+     * 日報を論理削除してブラウザの表示対象から除外。
      *
      * @param int $id
      * @return \Illuminate\Http\RedirectResponse
