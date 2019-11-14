@@ -9,8 +9,6 @@ class DailyReport extends Model
 {
     use SoftDeletes;
 
-    protected $table = 'daily_reports';
-
     protected $guarded = [];
     
     protected $dates = [

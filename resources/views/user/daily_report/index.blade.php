@@ -4,7 +4,7 @@
 <h2 class="brand-header">日報一覧</h2>
 <div class="main-wrap">
   <div class="btn-wrapper daily-report">
-    {{ Form::open(['route' => 'daily_report.index']) }}
+    {{ Form::open(['route' => 'daily_report.index', 'method' => 'get']) }}
       <div class="form-group @if($errors->has('search-month')) has-error @endif">
         {{ Form::month('search-month', null, ['class' => 'form-control']) }}
         {{ Form::button('<i class="fa fa-search"></i>', ['class' => 'btn btn-icon', 'type' => 'submit']) }}
