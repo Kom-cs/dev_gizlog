@@ -7,7 +7,7 @@ $factory->define(App\Models\DailyReport::class, function (Faker $faker) {
         'user_id' => $faker->numberBetween($min = 1, $max = 50),
         'title' => $faker->realText($maxNbChars = 30, $indexSize = 2),
         'content'=>$faker->realText($maxNbChars = 50, $indexSize = 2),
-        'reporting_time' => $faker->dateTime($max = 'now', $timezone = date_default_timezone_get()),
-        'created_at' => $faker->dateTime($max = 'now', $timezone = date_default_timezone_get()),
+        'reporting_time' => $faker->dateTime($max = 'now', date_default_timezone_get()),
+        'created_at' => $faker->dateTime($max = 'now', date_default_timezone_get()),
     ];
 });
