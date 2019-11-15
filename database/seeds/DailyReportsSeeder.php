@@ -12,17 +12,6 @@ class DailyReportsSeeder extends Seeder
     public function run()
     {
         DB::table('daily_reports')->truncate();
-        DB::table('daily_reports')->insert([
-            [
-                'user_id' => 1,
-                'title' => 'Simple is the Best',
-                'content' => 'Describe it',
-                'reporting_time' => Carbon::create(2019, 10, 30),
-                'created_at' => Carbon::create(2019, 10, 30),
-                'updated_at' => Carbon::create(2019, 10, 30),
-            ]
-        ]);
-
         factory(App\Models\DailyReport::class, 50)->create();
     }
 }
