@@ -50,6 +50,7 @@ class DailyReportController extends Controller
      * 作成した日報をDBに登録。
      *
      * @param App\Http\Requests\User\DailyReportRequest $request
+     * @param array $input
      * @return \Illuminate\Http\RedirectResponse
      */
 
@@ -90,6 +91,7 @@ class DailyReportController extends Controller
      *
      * @param App\Http\Requests\User\DailyReportRequest $request
      * @param int $id
+     * @param array $input
      * @return \Illuminate\Http\RedirectResponse
      */
     public function editReport(DailyReportRequest $request, $id)
