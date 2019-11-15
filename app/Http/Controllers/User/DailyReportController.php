@@ -19,7 +19,7 @@ class DailyReportController extends Controller
     }
 
     /**
-     * 日報の一覧表示と入力した月で検索。
+     * 日報の一覧表示と入力した月での検索。
      * 
      * @param Illuminate\Http\Request $request
      * @return \Illuminate\View\View|\Illuminate\Contracts\View\Factory
