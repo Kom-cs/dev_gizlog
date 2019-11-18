@@ -97,7 +97,7 @@ class DailyReportController extends Controller
     {
         $input = $request->validated();
         $input['user_id'] = Auth::id();
-        $this->dailyReport->find($id)->save($input);
+        $this->dailyReport->find($id)->fill($input)->save();
         return redirect()->route('daily_report.index');
     }
 
@@ -112,5 +112,4 @@ class DailyReportController extends Controller
         $this->dailyReport->find($id)->delete();
         return redirect()->route('daily_report.index');
     }
-
 }

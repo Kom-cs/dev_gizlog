@@ -9,7 +9,11 @@ class DailyReport extends Model
 {
     use SoftDeletes;
 
-    protected $guarded = [];
+    protected $guarded = [
+        'id',
+        'created_at',
+        'updated_at',
+    ];
     
     protected $dates = [
         'reporting_time',
@@ -23,5 +27,4 @@ class DailyReport extends Model
         }
         return $query->orderBy('reporting_time', 'desc')->get();
     }
-    
 }
