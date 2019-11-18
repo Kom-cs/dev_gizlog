@@ -18,7 +18,7 @@ class DailyReport extends Model
     public function getFilteredReport($id, $month) 
     {
         $query = $this->where('user_id', $id);
-        if (isset($month)){
+        if (isset($month)) {
             $query = $query->where('reporting_time', 'like', $month.'%');
         }
         return $query->orderBy('reporting_time', 'desc')->get();

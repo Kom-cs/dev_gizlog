@@ -38,8 +38,6 @@ class DailyReportRequest extends FormRequest
             'string' => '文字列形式で入力してください。',
             'max' => ':max文字以下で入力してください。',
         ];
-        
     }
-
 }
 
