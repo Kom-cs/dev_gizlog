@@ -52,7 +52,6 @@ class DailyReportController extends Controller
      * @param array $input
      * @return \Illuminate\Http\RedirectResponse
      */
-
     public function createReport(DailyReportRequest $request)
     {
         $input = $request->validated();
