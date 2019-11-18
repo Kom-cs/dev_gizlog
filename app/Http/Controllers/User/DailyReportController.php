@@ -24,7 +24,6 @@ class DailyReportController extends Controller
      * @param Illuminate\Http\Request $request
      * @return \Illuminate\View\View|\Illuminate\Contracts\View\Factory
      */
-
     public function index(Request $request)
     {
         $request->validate(
