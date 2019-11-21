@@ -97,4 +97,3 @@ class DailyReportController extends Controller
     }
 
 }
-

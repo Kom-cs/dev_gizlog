@@ -14,9 +14,11 @@ class DatabaseSeeder extends Seeder
         $this->call([
             AdminUsersTableSeeder::class,
             UsersTableSeeder::class,
-            DailyReportsTableSeeder::class,
             TagCategoriesSeeder::class,
-            AttendanceSeeder::class
+            AttendanceSeeder::class,
+            DailyReportsTableSeeder::class,
+            QuestionsTableSeeder::class,
+            ComementsTableSeeder::class
         ]);
     }
 }

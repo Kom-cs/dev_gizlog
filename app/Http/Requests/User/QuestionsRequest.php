@@ -23,7 +23,10 @@ class QuestionsRequest extends FormRequest
      */
     public function rules()
     {
-        //
+        return [
+            'title' => 'required|string|max:30',
+            'content' => 'required|string|max:1000',
+        ];
     }
 
     public function messages()
