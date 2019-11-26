@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers\User;
 
+use App\Models\Comment;
 use App\Models\Question;
+use App\Models\TagCategory;
+use App\Models\User;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\User\QuestionsRequest;
 use Illuminate\Http\Request;
@@ -23,9 +26,13 @@ class QuestionController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request, TagCategory $tagCategory, User $user)
     {
-        return view('user.question.index');
+        $searchWord = $request->input('search_word');
+        // $question = $this->question->getFilterdquestion($searchWord);
+        $questions = Question::with(['comment', 'tagCategory', 'user'])->paginate(10);
+        $tags = $tagCategory->getTags();
+        return view('user.question.index', compact('questions','tags'));
     }
 
     /**
@@ -35,7 +42,7 @@ class QuestionController extends Controller
      */
     public function create()
     {
-        //
+        return view('user.question.create');
     }
 
     /**
@@ -57,7 +64,15 @@ class QuestionController extends Controller
      */
     public function show($id)
     {
-        //
+        $question = $this->question->find($id);
+        return view('user.question.show', compact('question'));
+    }
+
+    public function showMyPage()
+    {
+        $info = User::find(Auth::id());
+        // dd($info);
+        return view('user.question.mypage');
     }
 
     /**
@@ -68,7 +83,8 @@ class QuestionController extends Controller
      */
     public function edit($id)
     {
-        //
+        $question = $this->question->find($id);
+        return view('user.question.edit', compact('question'));
     }
 
     /**

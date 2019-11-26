@@ -40,6 +40,7 @@ Route::group(['prefix' => '/', 'user.', 'namespace' => 'User'], function () {
     Route::post('attendance/modify', ['as' => 'attendance.modify.store', 'uses' => 'AttendanceController@storeModifyRequest']);
     Route::get('attendance/mypage', ['as' => 'attendance.mypage', 'uses' => 'AttendanceController@showMypage']);
 
+    Route::get('question/mypage', ['as' => 'question.mypage', 'uses' => 'questionController@showMyPage']);
     Route::resource('report', DailyReportController::class);
     
     Route::resource('question', QuestionController::class);

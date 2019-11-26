@@ -11,6 +11,7 @@ class QuestionsTableSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('questions')->trancate();
+        DB::table('questions')->truncate();
+        factory(App\Models\Question::class, 50)->create();
     }
 }

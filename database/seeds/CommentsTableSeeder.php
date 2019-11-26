@@ -11,6 +11,7 @@ class CommentsTableSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('comments')->trancate();
+        DB::table('comments')->truncate();
+        factory(App\Models\Comment::class, 200)->create();
     }
 }

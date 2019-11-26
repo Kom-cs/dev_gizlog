@@ -14,13 +14,4 @@ class Comment extends Model
         'question_id',
         'commment',
     ];
-
-    public function getFilterdComments($id, $searchWord)
-    {
-        $query = $this->where('user_id', $id);
-        if (isset($searchWord)) {
-            $query = $query->where('title', 'like', '%'.$searchWord.'%');
-        }
-        $query->pagenate(10);
-    }
 }
