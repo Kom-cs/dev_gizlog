@@ -15,7 +15,7 @@
       </div>
       <div class="form-group">
         <input class="form-control" placeholder="title" name="title" type="text" value="">
-        {{ Form::text('title', '{{ $question->title}}', ['class' => 'form-control', 'placeholder' => title])}}
+        {{ Form::text('title', '{{ $question->title}}', ['class' => 'form-control', 'placeholder' => title]) }}
         <span class="help-block"></span>
       </div>
       <div class="form-group">

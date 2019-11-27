@@ -5,9 +5,9 @@
 <div class="main-wrap">
   <div class="panel panel-success">
     <div class="panel-heading">
-      <img src="" class="avatar-img">
-      <p>&nbsp;さんの質問&nbsp;&nbsp;(&nbsp;&nbsp;)</p>
-      <p class="question-date"></p>
+      <img src="{{ $question->user->avatar }}" class="avatar-img">
+      <p>&nbsp;{{ $question->user->name }}さんの質問&nbsp;&nbsp;(&nbsp;{{ $question->tagCategory->name}}&nbsp;)</p>
+      <p class="question-date">{{ $question->created_at }}</p>
     </div>
     <div class="table-responsive">
       <table class="table table-striped table-bordered">
@@ -36,8 +36,8 @@
     </div>
   <div class="comment-box">
     <form>
-      <input name="user_id" type="hidden" value="">
-      <input name="question_id" type="hidden" value="">
+      <input name="user_id" type="hidden" value="{{ $userId }}">
+      <input name="question_id" type="hidden" value="{{ $question->id}}">
       <div class="comment-title">
         <img src="" class="avatar-img"><p>コメントを投稿する</p>
       </div>

@@ -18,14 +18,16 @@ class Question extends Model
         'content',
     ];
 
-    public function getFilterdQuestions($searchWord)
+    public function getFilterdQuestions($input)
     {
-        $query = $this->all();
-        if (isset($searchWord)) {
-            $query = $query->where('title', 'like', '%'.$searchWord.'%');
+        $query = Question::with(['comment', 'tagCategory', 'user']);
+        if (isset($input['search_word'])) {
+            $query = $query->where('title', 'like', '%'.$input['search_word'].'%');
         }
-
-        return $query->orderBy('id', 'desc')->get();
+        if (isset($input['tag_category_id'])) {
+            $query = $query->where('tag_category_id', $input['tag_category_id']);
+        }
+        return $query->orderBy('updated_at', 'desc')->paginate(10);
     }
 
     /**

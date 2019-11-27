@@ -28,11 +28,14 @@ class QuestionController extends Controller
      */
     public function index(Request $request, TagCategory $tagCategory, User $user)
     {
-        $searchWord = $request->input('search_word');
-        // $question = $this->question->getFilterdquestion($searchWord);
-        $questions = Question::with(['comment', 'tagCategory', 'user'])->paginate(10);
-        $tags = $tagCategory->getTags();
-        return view('user.question.index', compact('questions','tags'));
+        $input = $request->only(['search_word', 'tag_category_id']);
+        $input->validate([
+            'search_word' => 'nullable|string|exists:questions,title',
+            'tag_category_id' => 'nullable|int|exists:questions',
+            ]);
+        $questions = $this->question->getFilterdQuestions($input);
+        $categories = $tagCategory->getTags();
+        return view('user.question.index', compact('questions','categories'));
     }
 
     /**
@@ -40,9 +43,10 @@ class QuestionController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(TagCategory $tagCategory)
     {
-        return view('user.question.create');
+        $tags = $tagCategory->getTags();
+        return view('user.question.create', compact('tags'));
     }
 
     /**
@@ -51,9 +55,20 @@ class QuestionController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(QuestionsRequest $request)
     {
-        //
+        $input = $request->all();
+        $input['user_id'] = Auth::id();
+        $this->question->create($input);
+        return redirect()->route('question.index');
+    }
+
+    public function showConfirm(QuestionsRequest $request)
+    {
+        $input = $request->all();
+        $input['user_id'] = Auth::id();
+        $question = $this->question->create($input);
+        return view('user.question.confirm', 'question');
     }
 
     /**
@@ -62,17 +77,17 @@ class QuestionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($id, User $user)
     {
-        $question = $this->question->find($id);
-        return view('user.question.show', compact('question'));
+        $question = Question::with(['comment', 'tagCategory', 'user'])->find($id);
+        $userId = Auth::id();
+        return view('user.question.show', compact('question', 'userId'));
     }
 
     public function showMyPage()
     {
-        $info = User::find(Auth::id());
-        // dd($info);
-        return view('user.question.mypage');
+        $questions = Question::with(['comment', 'tagCategory', 'user'])->where('user_id', Auth::id())->get();
+        return view('user.question.mypage', compact('questions'));
     }
 
     /**
@@ -81,9 +96,8 @@ class QuestionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit()
     {
-        $question = $this->question->find($id);
         return view('user.question.edit', compact('question'));
     }
 

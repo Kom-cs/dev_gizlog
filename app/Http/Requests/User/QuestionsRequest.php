@@ -26,12 +26,18 @@ class QuestionsRequest extends FormRequest
         return [
             'title' => 'required|string|max:30',
             'content' => 'required|string|max:1000',
+            'tag_category_id' => 'required|int|between:1, 4',
         ];
     }
 
     public function messages()
     {
-        //
+        return [
+            'require' => '入力必須の項目です。',
+            'string' => '文字列形式で入力してください',
+            'int' => '数値形式で入力してください。',
+            'max' => ':max文字以内で入力してください。',
+            'between' => ':minから:maxの間の数値で入力してください。',
+        ];
     }
 }
-

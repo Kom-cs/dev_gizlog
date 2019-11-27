@@ -3,25 +3,31 @@
 
 <h2 class="brand-header">質問一覧</h2>
 <div class="main-wrap">
-  {{ Form::open(['route' => 'question.index', 'method' => 'get']) }}
+    {!! Form::open(['route' => 'question.index', 'method' => 'GET']) !!}
     <div class="btn-wrapper">
       <div class="search-box">
-        {{ Form::text('search_word', null, ['class' => 'form-control search-form', 'placeholder' => 'Search words...']) }}
-        {{ Form::button('<i class="fa fa-search" aria-hidden="true"></i>', ['class' => 'search-icon', 'type' => 'submit']) }}
+        @if (isset($inputs['search_word']))
+          {!! Form::input('text', 'search_word', $inputs['search_word'], ['class' => 'form-control search-form', 'placeholder' => 'Search words...']) !!}
+        @else
+          {!! Form::input('text', 'search_word', null, ['class' => 'form-control search-form', 'placeholder' => 'Search words...']) !!}
+        @endif
+        <button type="submit" class="search-icon"><i class="fa fa-search" aria-hidden="true"></i></button>
       </div>
       <a class="btn" href="{{ route('question.create') }}"><i class="fa fa-plus" aria-hidden="true"></i></a>
-      <a class="btn" href="{{ route('question.mypage') }}">
+      <a class="btn" href="{{ route('question.mypage', Auth::id()) }}">
         <i class="fa fa-user" aria-hidden="true"></i>
       </a>
     </div>
-    {{ Form::close() }}
     <div class="category-wrap">
-      <div class="btn all" id="0">all</div>
-      @foreach($tags as $tag)
-      <div class="btn {{ $tag->name }}" id="{{ $tag->id }}">{{ $tag->name }}</div>
-      {{ Form::hidden('tag_category_id', $tag->id, ['id' => 'category-val']) }}
-      @endforeach
+      <div class="btn all @if (empty($inputs['tag_category_id'])) selected @endif" id="0">all</div>
+        @foreach ($categories as $category)
+          <div class="btn {{ $category->name }} {{ $category->name }}-{{ $inputs['tag_category_id'] ?? '' }}" id="{{ $category->id }}">
+            {{ $category->name }}
+          </div>
+        @endforeach
+      {!! Form::input('hidden', 'tag_category_id', '0', ['id' => 'category-val']) !!}
     </div>
+  {!! Form::close() !!}
   <div class="content-wrapper table-responsive">
     <table class="table table-striped">
       <thead>
