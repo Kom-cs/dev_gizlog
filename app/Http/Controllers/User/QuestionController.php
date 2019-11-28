@@ -28,12 +28,7 @@ class QuestionController extends Controller
      */
     public function index(Request $request, TagCategory $tagCategory, User $user)
     {
-        $input = $request->only(['search_word', 'tag_category_id']);
-        $input->validate([
-            'search_word' => 'nullable|string|exists:questions,title',
-            'tag_category_id' => 'nullable|int|exists:questions',
-            ]);
-        $questions = $this->question->getFilterdQuestions($input);
+        $questions = $this->question->getFilterdQuestions($request);
         $categories = $tagCategory->getTags();
         return view('user.question.index', compact('questions','categories'));
     }

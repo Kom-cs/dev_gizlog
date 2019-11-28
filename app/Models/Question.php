@@ -9,8 +9,6 @@ class Question extends Model
 {
     use SoftDeletes;
 
-    protected $relations;
-
     protected $fillable = [
         'user_id',
         'tag_category_id',
@@ -18,16 +16,22 @@ class Question extends Model
         'content',
     ];
 
-    public function getFilterdQuestions($input)
+    public function getFilterdQuestions($request)
     {
-        $query = Question::with(['comment', 'tagCategory', 'user']);
+        $request->validate([
+            'search_word' => 'nullable|string',
+            'tag_category_id' => 'nullable|int|between:0,4',
+            ]);
+        $input = $request->only(['search_word', 'tag_category_id']);
+        $question = $this->with(['comment', 'tagCategory', 'user']);
         if (isset($input['search_word'])) {
-            $query = $query->where('title', 'like', '%'.$input['search_word'].'%');
+            $question = $question->where('title', 'like', '%'.$input['search_word'].'%');
         }
-        if (isset($input['tag_category_id'])) {
-            $query = $query->where('tag_category_id', $input['tag_category_id']);
+        if (isset($input['tag_category_id']) && $input['tag_category_id'] != 0) {
+            $question = $question->where('tag_category_id', $input['tag_category_id']);
         }
-        return $query->orderBy('updated_at', 'desc')->paginate(10);
+        return $question->orderBy('updated_at', 'desc')
+                        ->paginate(10);
     }
 
     /**
