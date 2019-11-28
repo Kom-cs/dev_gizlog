@@ -44,6 +44,16 @@ class QuestionController extends Controller
         return view('user.question.create', compact('tags'));
     }
 
+    /** 
+     * 
+    */
+    public function showConfirm(QuestionsRequest $request, User $user)
+    {
+        $input = $request->validated();
+        $user = $user->getUserById(Auth::id());
+        return view('user.question.confirm', compact('user'))->with($input);
+    }
+
     /**
      * Store a newly created resource in storage.
      *
@@ -52,18 +62,10 @@ class QuestionController extends Controller
      */
     public function store(QuestionsRequest $request)
     {
-        $input = $request->all();
+        $input = $request->validated();
         $input['user_id'] = Auth::id();
         $this->question->create($input);
         return redirect()->route('question.index');
-    }
-
-    public function showConfirm(QuestionsRequest $request)
-    {
-        $input = $request->all();
-        $input['user_id'] = Auth::id();
-        $question = $this->question->create($input);
-        return view('user.question.confirm', 'question');
     }
 
     /**
@@ -74,14 +76,14 @@ class QuestionController extends Controller
      */
     public function show($id, User $user)
     {
-        $question = Question::with(['comment', 'tagCategory', 'user'])->find($id);
+        $question = $this->question->with(['comment', 'tagCategory', 'user'])->find($id);
         $userId = Auth::id();
         return view('user.question.show', compact('question', 'userId'));
     }
 
     public function showMyPage()
     {
-        $questions = Question::with(['comment', 'tagCategory', 'user'])->where('user_id', Auth::id())->get();
+        $questions = $this->question->with(['comment', 'tagCategory', 'user'])->where('user_id', Auth::id())->get();
         return view('user.question.mypage', compact('questions'));
     }
 
@@ -116,6 +118,7 @@ class QuestionController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $this->question->find($id)->delete();
+        return redirect()->route('question.index');
     }
 }

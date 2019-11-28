@@ -2,7 +2,7 @@
 @section ('content')
 
 <h2 class="brand-header">
-  <img src="" class="avatar-img">&nbsp;&nbsp;My page
+  <img src="{{ $questions[0]->user->avatar }}" class="avatar-img">&nbsp;&nbsp;My page
 </h2>
 <div class="main-wrap">
   <div class="content-wrapper table-responsive">
@@ -30,11 +30,11 @@
             </a>
           </td>
           <td class="col-xs-1">
-            <form>
+            {{ Form::open(['route' => ['question.destroy', $question->id], 'method' => 'delete']) }}
               <button class="btn btn-danger" type="submit">
                 <i class="fa fa-trash-o" aria-hidden="true"></i>
               </button>
-            </form>
+            {{ Form::close() }}
           </td>
         </tr>
         @endforeach

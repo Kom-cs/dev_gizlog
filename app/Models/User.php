@@ -72,5 +72,10 @@ class User extends Authenticatable
             $this->withTrashed()->where('user_info_id', $userInfoId)->update(['deleted_at' => null]);
         });
     }
+
+    public function getUserById($id)
+    {
+        return $this->where('id', $id)->get();
+    }
 }
 
