@@ -93,9 +93,11 @@ class QuestionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit()
+    public function edit($id, TagCategory $tagCategory)
     {
-        return view('user.question.edit', compact('question'));
+        $question = $this->question->find($id);
+        $tags = $tagCategory->getTags();
+        return view('user.question.edit', compact('question', 'tags'));
     }
 
     /**
@@ -105,9 +107,12 @@ class QuestionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(QuestionsRequest $request, $id)
     {
-        //
+        $input = $request->validated();
+        $input['user_id'] = Auth::id();
+        $this->question->find($id)->fill($input)->save();
+        return redirect()->route('question.index');
     }
 
     /**
