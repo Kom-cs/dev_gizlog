@@ -5,7 +5,7 @@
 
 <div class="main-wrap">
   <div class="container">
-    {{ Form::open(['route' => ['question.update', $question->id], 'method' => 'put']) }}
+    {{ Form::open(['route' => ['question.confirm', $question->id], 'method' => 'get']) }}
       <div class="form-group @if($errors->has('tag_category_id')) has-error @endif">
         {{ Form::select('tag_category_id', [1 => 'front', 2 => 'back', 3 => 'infra', 4 => 'others'], $question->tag_category_id, ['class' => 'form-control selectpicker form-size-small', 'id' => 'pref_id', 'placeholder' => 'Select category']) }}
         <span class="help-block">{{ $errors->first('tag_category_id') }}</span>

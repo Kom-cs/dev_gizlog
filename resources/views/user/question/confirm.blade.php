@@ -23,7 +23,11 @@
     </div>
   </div>
   <div class="btn-bottom-wrapper">
-    {{ Form::open(['route' => 'question.store', 'method' => 'post']) }}
+    @if($id = null)
+    {{ Form::open(['route' => 'question.storeQuestion', 'method' => 'post']) }}
+    @else
+    {{ Form::open(['route' => ['question.updateQuestion', $question->id], 'method' => 'put']) }}
+    @endif
       <input name="tag_category_id" type="hidden" value="{{ $tag_category_id }}">
       <input name="title" type="hidden" value="{{ $title }}">
       <input name="content" type="hidden" value="{{ $content }}">

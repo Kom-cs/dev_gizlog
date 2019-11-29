@@ -50,27 +50,30 @@ class QuestionController extends Controller
     public function showConfirm(QuestionsRequest $request, User $user)
     {
         $input = $request->validated();
+        $input['id'] = null;
         $user = $user->getUserById(Auth::id());
         return view('user.question.confirm', compact('user'))->with($input);
     }
 
+    
     /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(QuestionsRequest $request)
+    public function storeQuestion(QuestionsRequest $request)
     {
         $input = $request->validated();
         $input['user_id'] = Auth::id();
-        $this->question->create($input);
+        $this->question-create();
         return redirect()->route('question.index');
     }
 
     /**
      * Display the specified resource.
      *
+     * @param App\Models\TagCategory
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
@@ -83,7 +86,10 @@ class QuestionController extends Controller
 
     public function showMyPage()
     {
-        $questions = $this->question->with(['comment', 'tagCategory', 'user'])->where('user_id', Auth::id())->get();
+        $questions = $this->question->with(['comment', 'tagCategory', 'user'])
+                                    ->where('user_id', Auth::id())
+                                    ->orderBy('updated_at', 'desc')
+                                    ->paginate(10);
         return view('user.question.mypage', compact('questions'));
     }
 
@@ -95,26 +101,41 @@ class QuestionController extends Controller
      */
     public function edit($id, TagCategory $tagCategory)
     {
-        $question = $this->question->find($id);
         $tags = $tagCategory->getTags();
+        $question = $this->question->find($id);
         return view('user.question.edit', compact('question', 'tags'));
+    }
+    
+    /**
+     * Undocumented function
+     *
+     * @param QuestionsRequest $request
+     * @param App\Models\User $user
+     * @param int $id
+     * @return \Illuminate\Http\Response
+     */
+    public function showEditConfirm(QuestionsRequest $request, User $user, $id)
+    {
+        $input = $request->validated();
+        $user = $user->getUserById(Auth::id());
+        $question = $this->question->find($id);
+        return view('user.question.confirm', compact('user', 'question'))->with($input);
     }
 
     /**
-     * Update the specified resource in storage.
+     * Undocumented function
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param Requests\User\QuestionsRequest $request
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
-    public function update(QuestionsRequest $request, $id)
+    public function updateQuestion(QuestionsRequest $request, $id)
     {
         $input = $request->validated();
-        $input['user_id'] = Auth::id();
         $this->question->find($id)->fill($input)->save();
-        return redirect()->route('question.index');
+        return redirect()->route('question.mypage');
     }
-
+    
     /**
      * Remove the specified resource from storage.
      *
@@ -124,6 +145,6 @@ class QuestionController extends Controller
     public function destroy($id)
     {
         $this->question->find($id)->delete();
-        return redirect()->route('question.index');
+        return redirect()->route('question.mypage');
     }
 }
